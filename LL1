@@ -1,0 +1,222 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+typedef struct grammar{
+ char lhs[10];
+ char rhs[10][10];
+ int i;
+}grammar;
+int check(char a){
+  if(a=='a'||a=='b'||a=='c'||a=='d'||a=='e'||a=='f'||a=='g'||a=='h'||a=='i'||a=='j'|| a=='k'||a=='l'||a=='m'||a=='n'||a=='o'||a=='p'||a=='q'||a=='r'||a=='s'||a=='t'||a=='u'||a=='v'||a=='w'||a=='x'||a=='y'||a=='z')
+  return 1;
+  else
+  return 0;
+
+
+}
+int check1(char a){
+  if(a=='A'||a=='B'||a=='C'||a=='D'||a=='E'||a=='F'||a=='G'||a=='H'||a=='I'||a=='J'|| a=='K'||a=='L'||a=='M'||a=='N'||a=='O'||a=='P'||a=='Q'||a=='R'||a=='S'||a=='T'||a=='U'||a=='V'||a=='W'||a=='X'||a=='Y'||a=='Z')
+  return 1;
+  else
+  return 0;
+
+
+}
+
+void main(){
+int yu=0,yu1,wer;
+int k,j,y,n1,t,l,m,n,asc;
+char temp,alpha[10],beta[10];
+char first[10];
+char nont[10];
+grammar g[10];
+clrscr();
+printf("Enter the number of productions:\n");
+scanf("%d",&j);
+for(k=0;k<j;k++)
+{
+ printf("enter LHS: ");
+ scanf("%s",&g[k].lhs);
+ printf("\nenter number of right production sets for the above grammar:");
+ scanf("%d",&l);
+ for(m=0;m<l;m++)
+ {
+  printf("enter RHS: ");
+ scanf("%s",&g[k].rhs[m]);
+
+for(n1=0;n1<strlen(g[k].rhs[m]);n1++){
+      if(check(g[k].rhs[m][n1])==1)
+      nont[yu++]=g[k].rhs[m][n1];
+
+}
+
+ }
+ printf("\n");
+}
+for(k=0;k<j;k++)
+{
+ printf("%s->",g[k].lhs);
+   for(m=0;m<strlen(g[k].rhs[0]);m++)
+   printf("%s|",g[k].rhs[m]);
+printf("\n");
+}
+
+if(g[0].rhs[0][0]==g[0].lhs[0]){
+ char  samp[10];
+ strcpy(samp,g[0].rhs[0]);
+    strcpy(g[0].rhs[0],g[0].rhs[1]);
+    strcat(g[0].rhs[0],"R");
+    strcpy(g[0].rhs[1],"");
+    g[k+1].lhs[0]='R';
+   strcpy( g[k+1].rhs[0],samp);
+   for(y=0;y<strlen(g[k+1].rhs[0]);y++)
+   {
+   g[k+1].rhs[0][y]=g[k+1].rhs[0][y+1];
+   }
+   g[k+1].rhs[0][y+1]='R';
+   j=j+1;
+}
+printf("\n\n");
+for(k=0;k<j;k++)
+{
+ for(m=0;m<strlen(g[k].rhs[0]);m++)
+ {
+/* temp=g[k].rhs[m][0];
+
+ asc=atoi(temp);
+ printf("%d",asc);
+  if(asc<=97&&asc>=122)
+  printf("first(%s): %s",g[k].rhs[m],g[k].rhs[m]);
+*/
+  if(check(g[k].rhs[m][0])==1)
+  printf("FIRST(%c):%c\n",g[k].lhs[0],g[k].rhs[m][0]);
+  else
+{
+ for(t=0;t<j;t++)
+{
+  if(g[k].rhs[m][0]==g[t].lhs[0])
+  printf("Found match : %s\n",g[t].lhs);
+  printf("FIRST(%c)=FIRST(%c)\n",g[k].lhs[0],g[t].lhs[0]);
+  if(check(g[t].rhs[m][0])==1)
+  printf("FIRST(%c):%c\n",g[k].lhs[0],g[t].rhs[m][0]);
+ // if(m+1<strlen(g[k].rhs[0]))   {
+ // if(check(g[t].rhs[m+1][0])==1)
+ // printf("FIRST(%c):%c\n",g[k].lhs[0],g[t].rhs[m+1][0]);
+ // }
+}
+
+}
+ }
+
+}
+
+for(k=j;k>=0;k--)
+{
+// printf("eh");
+if(k==0){
+ printf("FOLLOW(%c)=$\n",g[k].lhs[0]);
+}
+
+ for(m=0;m<strlen(g[k].rhs[0]);m++)
+ {
+
+ if((strlen(g[k].rhs[0]))==2)
+ {
+// static int c23=0;
+// if(g[k].rhs[1][0]=='e'){
+// printf("FOLLOW(%c)=FOLLOW(%c)\n",g[k].rhs[0][1],g[k].lhs[0]);
+		  //  c23++;
+// }
+
+ }
+
+
+
+
+
+// printf("check");
+ if(strlen(g[k].rhs[0])>2){
+// printf("found\n");
+static int c7=0;
+ if(g[k].rhs[2][0]=='e'&& c7==0)   {
+// printf("IS IT DIS:");
+c7++;
+ printf("FOLLOW(%c)=FOLLOW(%c)\n",g[k].rhs[0][1],g[k].lhs[0]);
+			    }
+ if(check1(g[k].rhs[m][1])==1){
+// printf("TRUE");
+ if(check(g[k].rhs[m][2])==1){
+ printf("FOLLOW(%c)=%c",g[k].rhs[m][1],g[k].rhs[m][2]);
+ }
+ else
+ {
+ printf("FOLLOW(%c)=",g[k].rhs[m][1]);
+  for(t=0;t<j;t++)
+{
+  if(g[k].rhs[m][2]==g[t].lhs[0])
+//  printf("Found match : %s\n",g[t].lhs);
+//  printf("FIRST(%c)=FIRST(%c)\n",g[k].lhs[0],g[t].lhs[0]);
+  if(check(g[t].rhs[m][0])==1)
+  printf("%c\n",g[t].rhs[m][0]);
+ // if(m+1<strlen(g[k].rhs[0]))   {
+ // if(check(g[t].rhs[m+1][0])==1)
+ // printf("FIRST(%c):%c\n",g[k].lhs[0],g[t].rhs[m+1][0]);
+ // }
+}
+
+
+ }
+
+ }
+
+
+}
+ }
+
+
+ }
+
+printf("\n");
+printf("Non-terminals\t");
+yu1=yu;
+wer=yu1;
+for(;yu>=0;)
+printf("%c\t",nont[--yu]);
+printf("\n");
+for(k=0;k<j;k++){
+printf("\nterminals   %c\t",g[k].lhs[0]);
+       yu1=wer;
+//    for(;yu1>=sizeof(nont)/2;){
+
+ for(m=strlen(g[k].rhs[0]);m>=0;m--)
+ {
+for(yu1=wer;yu1>=0;){
+  if(nont[--yu1]==g[k].rhs[m][0]){
+   printf("%s->%s",g[k].lhs,g[k].rhs[m]);
+  }                  }
+
+  if(check1(g[k].rhs[m][0])==1)
+{
+ for(t=0;t<j;t++)
+{
+  if(g[k].rhs[m][0]==g[t].lhs[0])
+//  printf("Found match : %s\n",g[t].lhs);
+//  printf("FIRST(%c)=FIRST(%c)\n",g[k].lhs[0],g[t].lhs[0]);
+  if(check(g[t].rhs[m][0])==1)
+  printf("%s->%s   ",g[k].lhs,g[k].rhs[m]);
+ // if(m+1<strlen(g[k].rhs[0]))   {
+ // if(check(g[t].rhs[m+1][0])==1)
+ // printf("FIRST(%c):%c\n",g[k].lhs[0],g[t].rhs[m+1][0]);
+ // }
+
+
+ printf("\t");
+}}
+ }
+
+
+
+
+}
+getch();
+}
