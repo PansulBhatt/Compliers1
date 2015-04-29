@@ -1,0 +1,127 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<string.h>
+void main()
+{
+char ident[10]="";
+
+char com[10]="";
+	      char c,fname[10];
+	      clrscr();
+	      int c1=0;
+	      int i=0,j,j1=0,k,i1=0;
+	      strcpy(fname,"doc.txt");
+	      j=0;k=0;
+	      ifstream in(fname);
+	      ifstream in1(fname);
+	      if(!in)
+	      {
+			    cout<<"File Does not Exist";
+			    getch();
+			    return;
+	      }
+	      cout<<"Source code is:\nvoid main(){";
+	      cout<<"\n\n";
+	      while(in.eof()==0)
+	      {
+
+			    in.get(c);
+			    /*if(ident[c1]==c){
+			    com[c1]=c;
+			    cout<<"ch";
+				 c1++;
+			    }
+			    if(strcmp(com,ident)==0){
+			     cout<<"match";
+			    } */
+
+		       if(c=='i'){
+		       c1=1;}
+		       if(c1==1&&c=='n'){
+			  c1=2;
+		       }
+		       if(c1==2&&c=='t'){
+			c1=3;
+		       }
+		       cout<<c;
+			     if(c1==3)
+			  {   cout<<"found";
+			   c1=0;
+
+			   in.get(c);
+			   cout<<c;
+			   if(c==' ')
+			   c1=4;
+			   in.get(c);
+			   cout<<c;
+			  }
+		   if(c1==4 && i<3){
+		   if(c!=','&&c!=';')
+		   ident[i++]=c;
+
+		   }
+
+	      strcpy(com,ident);
+
+	      }
+
+
+     while(in1.eof()==0)
+	      {
+
+			    in1.get(c);
+			    /*if(ident[c1]==c){
+			    com[c1]=c;
+			    cout<<"ch";
+				 c1++;
+			    }
+			    if(strcmp(com,ident)==0){
+			     cout<<"match";
+			    } */
+		    for(j=0;j<strlen(com);j++){
+		       if(c==com[j]){
+		       c1=1;
+		       in1.get(c);
+		     //  cout<<c;
+		       }
+		       if(c1==1&&c=='='){
+			  c1=2;
+		       }
+
+		       for(k=0;k<3;k++){
+		       if(c1==2&&c==com[k]){
+		       cout<<com[k]<<endl;
+			c1=3;
+		       }
+		   //    cout<<c;
+			     if(c1==3)
+			  {  // cout<<"found";
+
+
+			   in1.get(c);
+			 //  cout<<c;
+
+			   if(i1==0){
+
+			 cout<<"match";
+			  i1++;
+			 }
+			 }
+
+
+
+
+
+	      }
+		 }}
+
+	      if(i1==0)
+	      cout<<"mismatch error" ;
+	      cout<<endl;
+	      cout<<"Values in the symbol table\n";
+	      for(i=0;i<strlen(ident);i++ )
+	      cout<<ident[i]<<"  id\n";
+	      cout<<"="<<" op\n+"<<" op\n";
+	      getch();
+}
